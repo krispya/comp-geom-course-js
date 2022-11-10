@@ -5,13 +5,13 @@ const DIM3 = 3;
 
 type Tuple<T, N extends number, R extends T[] = []> = R['length'] extends N ? R : Tuple<T, N, [T, ...R]>;
 
-export class Vector<T extends number = number> {
+export class Vector<N extends number = number> {
 	private _dimension: number;
-	private _components: Tuple<number, T>;
+	private _components: Tuple<number, N>;
 
-	constructor(dimension: T, components?: Tuple<number, T>) {
+	constructor(dimension: N, components?: Tuple<number, N>) {
 		this._dimension = dimension;
-		this._components = components ?? (Array(dimension).fill(0) as Tuple<number, T>);
+		this._components = components ?? (Array(dimension).fill(0) as Tuple<number, N>);
 	}
 
 	get dimension() {
@@ -22,21 +22,21 @@ export class Vector<T extends number = number> {
 		return this._components;
 	}
 
-	equals(v: Vector<T>) {
+	equals(v: Vector<N>) {
 		for (let i = 0; i < this.dimension; i++) {
 			if (!isEqualTolerance(this.components[i], v.components[i])) return false;
 		}
 		return true;
 	}
 
-	add(v: Vector<T>) {
+	add(v: Vector<N>) {
 		for (let i = 0; i < this.dimension; i++) {
 			this.components[i] += v.components[i];
 		}
 		return this;
 	}
 
-	subtract(v: Vector<T>) {
+	subtract(v: Vector<N>) {
 		for (let i = 0; i < this.dimension; i++) {
 			this.components[i] -= v.components[i];
 		}
@@ -45,7 +45,7 @@ export class Vector<T extends number = number> {
 
 	sub = this.subtract;
 
-	lessThan(v: Vector<T>) {
+	lessThan(v: Vector<N>) {
 		for (let i = 0; 0 < this.dimension; i++) {
 			if (this.components[i] < v.components[i]) return true;
 			else if (this.components[i] > v.components[i]) return false;
@@ -53,7 +53,7 @@ export class Vector<T extends number = number> {
 		return false;
 	}
 
-	greaterThan(v: Vector<T>) {
+	greaterThan(v: Vector<N>) {
 		for (let i = 0; 0 < this.dimension; i++) {
 			if (this.components[i] > v.components[i]) return true;
 			else if (this.components[i] < v.components[i]) return false;
@@ -61,7 +61,7 @@ export class Vector<T extends number = number> {
 		return false;
 	}
 
-	dot(v: Vector<T>) {
+	dot(v: Vector<N>) {
 		let product = 0;
 		for (let i = 0; 0 < this.dimension; i++) {
 			product += this.components[i] * v.components[i];
