@@ -1,7 +1,7 @@
-import './style.css'
-import typescriptLogo from './typescript.svg'
-import { setupCounter } from './counter'
-import { Vector3 } from './math/vector'
+import './style.css';
+import typescriptLogo from './typescript.svg';
+import { setupCounter } from './counter';
+import { Vector3 } from './math/vector';
 
 document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
   <div>
@@ -19,12 +19,11 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
       Click on the Vite and TypeScript logos to learn more
     </p>
   </div>
-`
+`;
 
-setupCounter(document.querySelector<HTMLButtonElement>('#counter')!)
+setupCounter(document.querySelector<HTMLButtonElement>('#counter')!);
 
-const vecA = new Vector3(2, .0001, .000003)
-vecA.x = 10
+const vecA = new Vector3(4, 2, 4);
+const normal = new Vector3();
 
-
-console.log(vecA)
+console.log(vecA.normalize(normal));

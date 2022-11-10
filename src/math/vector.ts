@@ -22,6 +22,12 @@ export class Vector<N extends number = number> {
 		return this._components;
 	}
 
+	set(...args: number[]) {
+		for (let i = 0; i < args.length; i++) {
+			(this.components as number[])[i] = args[i];
+		}
+	}
+
 	equals(v: Vector<N>) {
 		for (let i = 0; i < this.dimension; i++) {
 			if (!isEqualTolerance((this.components as number[])[i], (v.components as number[])[i])) return false;
@@ -67,6 +73,30 @@ export class Vector<N extends number = number> {
 			product += (this.components as number[])[i] * (v.components as number[])[i];
 		}
 		return product;
+	}
+
+	magnitude() {
+		let value = 0;
+		for (let i = 0; i < this.dimension; i++) {
+			value += Math.pow((this.components as number[])[i], 2);
+		}
+		return Math.sqrt(value);
+	}
+
+	normalize(target?: Vector<N>) {
+		const magnitude = this.magnitude();
+		const normal = [];
+
+		for (let i = 0; i < this.dimension; i++) {
+			normal.push((this.components as number[])[i] / magnitude);
+		}
+
+		if (target) {
+			target.set(...normal);
+			return target;
+		}
+
+		return new Vector(this.dimension, normal as []);
 	}
 }
 
@@ -124,9 +154,7 @@ export class Vector3 extends Vector<3> {
 	}
 
 	set(x: number, y: number, z: number) {
-		this.x = x;
-		this.y = y;
-		this.z = z;
+		super.set(x, y, z);
 	}
 
 	cross = crossProduct3D;
@@ -149,5 +177,10 @@ export function crossProduct3D(v1: Vector3, v2: Vector3, target: Vector3) {
 	const y = v1.z * v2.x - v1.x * v2.z;
 	const z = v1.x * v2.y - v1.y * v2.x;
 
-	return target ? target.set(x, y, z) : new Vector3(x, y, z);
+	if (target) {
+		target.set(x, y, z);
+		return target;
+	}
+
+	return new Vector3(x, y, z);
 }
