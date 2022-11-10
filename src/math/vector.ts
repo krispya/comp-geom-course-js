@@ -106,19 +106,19 @@ export class Vector2 extends Vector<2> {
 	}
 
 	get x() {
-		return (this.components as number[])[0];
+		return this.components[0];
 	}
 
 	set x(value: number) {
-		(this.components as number[])[0] = value;
+		this.components[0] = value;
 	}
 
 	get y() {
-		return (this.components as number[])[1];
+		return this.components[1];
 	}
 
 	set y(value: number) {
-		(this.components as number[])[1] = value;
+		this.components[1] = value;
 	}
 
 	cross = crossProduct2D;
@@ -130,27 +130,27 @@ export class Vector3 extends Vector<3> {
 	}
 
 	get x() {
-		return (this.components as number[])[0];
+		return this.components[0];
 	}
 
 	set x(value: number) {
-		(this.components as number[])[0] = value;
+		this.components[0] = value;
 	}
 
 	get y() {
-		return (this.components as number[])[1];
+		return this.components[1];
 	}
 
 	set y(value: number) {
-		(this.components as number[])[1] = value;
+		this.components[1] = value;
 	}
 
 	get z() {
-		return (this.components as number[])[2];
+		return this.components[2];
 	}
 
 	set z(value: number) {
-		(this.components as number[])[2] = value;
+		this.components[2] = value;
 	}
 
 	set(x: number, y: number, z: number) {
