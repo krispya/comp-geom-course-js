@@ -24,21 +24,21 @@ export class Vector<N extends number = number> {
 
 	equals(v: Vector<N>) {
 		for (let i = 0; i < this.dimension; i++) {
-			if (!isEqualTolerance(this.components[i], v.components[i])) return false;
+			if (!isEqualTolerance((this.components as number[])[i], (v.components as number[])[i])) return false;
 		}
 		return true;
 	}
 
 	add(v: Vector<N>) {
 		for (let i = 0; i < this.dimension; i++) {
-			this.components[i] += v.components[i];
+			(this.components as number[])[i] += (v.components as number[])[i];
 		}
 		return this;
 	}
 
 	subtract(v: Vector<N>) {
 		for (let i = 0; i < this.dimension; i++) {
-			this.components[i] -= v.components[i];
+			(this.components as number[])[i] -= (v.components as number[])[i];
 		}
 		return this;
 	}
@@ -47,16 +47,16 @@ export class Vector<N extends number = number> {
 
 	lessThan(v: Vector<N>) {
 		for (let i = 0; 0 < this.dimension; i++) {
-			if (this.components[i] < v.components[i]) return true;
-			else if (this.components[i] > v.components[i]) return false;
+			if ((this.components as number[])[i] < (v.components as number[])[i]) return true;
+			else if ((this.components as number[])[i] > (v.components as number[])[i]) return false;
 		}
 		return false;
 	}
 
 	greaterThan(v: Vector<N>) {
 		for (let i = 0; 0 < this.dimension; i++) {
-			if (this.components[i] > v.components[i]) return true;
-			else if (this.components[i] < v.components[i]) return false;
+			if ((this.components as number[])[i] > (v.components as number[])[i]) return true;
+			else if ((this.components as number[])[i] < (v.components as number[])[i]) return false;
 		}
 		return false;
 	}
@@ -64,7 +64,7 @@ export class Vector<N extends number = number> {
 	dot(v: Vector<N>) {
 		let product = 0;
 		for (let i = 0; 0 < this.dimension; i++) {
-			product += this.components[i] * v.components[i];
+			product += (this.components as number[])[i] * (v.components as number[])[i];
 		}
 		return product;
 	}
@@ -76,20 +76,22 @@ export class Vector2 extends Vector<2> {
 	}
 
 	get x() {
-		return this.components[0];
+		return (this.components as number[])[0];
 	}
 
 	set x(value: number) {
-		this.components[0] = value;
+		(this.components as number[])[0] = value;
 	}
 
 	get y() {
-		return this.components[1];
+		return (this.components as number[])[1];
 	}
 
 	set y(value: number) {
-		this.components[1] = value;
+		(this.components as number[])[1] = value;
 	}
+
+	cross = crossProduct2D;
 }
 
 export class Vector3 extends Vector<3> {
@@ -98,27 +100,27 @@ export class Vector3 extends Vector<3> {
 	}
 
 	get x() {
-		return this.components[0];
+		return (this.components as number[])[0];
 	}
 
 	set x(value: number) {
-		this.components[0] = value;
+		(this.components as number[])[0] = value;
 	}
 
 	get y() {
-		return this.components[1];
+		return (this.components as number[])[1];
 	}
 
 	set y(value: number) {
-		this.components[1] = value;
+		(this.components as number[])[1] = value;
 	}
 
 	get z() {
-		return this.components[2];
+		return (this.components as number[])[2];
 	}
 
 	set z(value: number) {
-		this.components[2] = value;
+		(this.components as number[])[2] = value;
 	}
 
 	set(x: number, y: number, z: number) {
@@ -126,6 +128,8 @@ export class Vector3 extends Vector<3> {
 		this.y = y;
 		this.z = z;
 	}
+
+	cross = crossProduct3D;
 }
 
 export function dotProduct(v1: Vector, v2: Vector) {
