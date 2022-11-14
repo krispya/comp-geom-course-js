@@ -26,6 +26,14 @@ export class Vector<N extends number = number> {
 		for (let i = 0; i < args.length; i++) {
 			(this.components as number[])[i] = args[i];
 		}
+		return this;
+	}
+
+	copy(v: Vector<N>) {
+		for (let i = 0; i < this.dimension; i++) {
+			(this.components as number[])[i] = (v.components as number[])[i];
+		}
+		return this;
 	}
 
 	equals(v: Vector<N>) {
@@ -50,6 +58,13 @@ export class Vector<N extends number = number> {
 	}
 
 	sub = this.subtract;
+
+	multiply(v: Vector<N>) {
+		for (let i = 0; i < this.dimension; i++) {
+			(this.components as number[])[i] *= (v.components as number[])[i];
+		}
+		return this;
+	}
 
 	lessThan(v: Vector<N>) {
 		for (let i = 0; 0 < this.dimension; i++) {
@@ -121,7 +136,9 @@ export class Vector2 extends Vector<2> {
 		this.components[1] = value;
 	}
 
-	cross = crossProduct2D;
+	cross(v2: Vector2) {
+		return this.x * v2.y - this.y * v2.x;
+	}
 }
 
 export class Vector3 extends Vector<3> {
@@ -155,9 +172,21 @@ export class Vector3 extends Vector<3> {
 
 	set(x: number, y: number, z: number) {
 		super.set(x, y, z);
+		return this;
 	}
 
-	cross = crossProduct3D;
+	cross(v2: Vector3, target: Vector3) {
+		const x = this.y * v2.z - this.z * v2.y;
+		const y = this.z * v2.x - this.x * v2.z;
+		const z = this.x * v2.y - this.y * v2.x;
+
+		if (target) {
+			target.set(x, y, z);
+			return target;
+		}
+
+		return new Vector3(x, y, z);
+	}
 }
 
 export function dotProduct(v1: Vector, v2: Vector) {

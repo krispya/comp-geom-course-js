@@ -24,6 +24,6 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
 setupCounter(document.querySelector<HTMLButtonElement>('#counter')!);
 
 const vecA = new Vector3(4, 2, 4);
-const normal = new Vector3();
+const vecB = new Vector3(-1, 2, 0);
 
-console.log(vecA.normalize(normal));
+console.log(vecA.multiply(vecB));
